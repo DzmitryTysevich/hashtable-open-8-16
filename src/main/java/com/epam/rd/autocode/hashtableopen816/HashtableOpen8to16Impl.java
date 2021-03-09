@@ -59,10 +59,16 @@ public class HashtableOpen8to16Impl implements HashtableOpen8to16 {
         searchCounter = 0;
         ListNode listNode = checkBucketForListNode(key, bucket);
         if (listNode != null) {
-            listNode.markedAsRemoved();
+            removeNode(listNode);
             sizeElements--;
             decreaseSize();
         }
+    }
+
+    private void removeNode(ListNode listNode) {
+        listNode.setKey(null);
+        listNode.setValue(null);
+        listNode.markedAsRemoved();
     }
 
     private void decreaseSize() {

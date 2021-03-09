@@ -3,18 +3,19 @@ package com.epam.rd.autocode.hashtableopen816;
 public class ListNode {
     private Integer key;
     private Object value;
-    private boolean isRemoved;
+    private boolean flag;
 
     public void markedAsRemoved() {
-        isRemoved = true;
+        flag = true;
     }
 
     public boolean notMarkedAsRemoved() {
-        return !isRemoved;
+        return !flag;
     }
 
     public Integer getKey() {
-        return key;
+        if (key != null) return key;
+        return 0;
     }
 
     public void setKey(Integer key) {
