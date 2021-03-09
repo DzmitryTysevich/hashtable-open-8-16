@@ -15,14 +15,13 @@ public class HashtableOpen8to16Impl implements HashtableOpen8to16 {
     public HashtableOpen8to16Impl(int initialCapacity, double loadFactor) {
         table = new ListNode[initialCapacity];
         this.loadFactor = loadFactor;
-
     }
 
     @Override
     public void insert(int key, Object value) {
         int bucket = getBucket(key);
         ListNode list = table[bucket];
-        while (list != null && list.notRemoved()) {
+        while (list != null && list.notMarkAsRemoved()) {
             if (list.getKey().equals(key)) {
                 sizeElements--;
                 break;
@@ -60,7 +59,7 @@ public class HashtableOpen8to16Impl implements HashtableOpen8to16 {
         searchCounter = 0;
         ListNode listNode = checkBucketForListNode(key, bucket);
         if (listNode != null) {
-            listNode.remove();
+            listNode.markAsRemoved();
             sizeElements--;
             decreaseSize();
         }
@@ -76,7 +75,7 @@ public class HashtableOpen8to16Impl implements HashtableOpen8to16 {
         if (searchCounter == table.length) return null;
         searchCounter++;
         if (table[bucket] != null) {
-            if (table[bucket].getKey() == key && table[bucket].notRemoved()) {
+            if (table[bucket].getKey() == key && table[bucket].notMarkAsRemoved()) {
                 return table[bucket];
             } else {
                 return checkBucketForListNode(key, indexLinearIncrease(bucket));
@@ -100,7 +99,7 @@ public class HashtableOpen8to16Impl implements HashtableOpen8to16 {
     public int[] keys() {
         int[] keys = new int[size()];
         for (int i = 0; i < keys.length; i++) {
-            if (table[i] != null && table[i].notRemoved())
+            if (table[i] != null && table[i].notMarkAsRemoved())
                 keys[i] = table[i].getKey();
         }
         return keys;
@@ -114,7 +113,7 @@ public class HashtableOpen8to16Impl implements HashtableOpen8to16 {
         ListNode[] newTable = new ListNode[size];
         addIllegalStateException(newTable);
         for (ListNode list : table) {
-            if (list != null && list.notRemoved()) {
+            if (list != null && list.notMarkAsRemoved()) {
                 int bucket = (Math.abs(list.getKey().hashCode())) % newTable.length;
                 bucket = getLinearBucket(newTable, bucket, list.getKey());
                 newTable[bucket] = list;
@@ -140,7 +139,7 @@ public class HashtableOpen8to16Impl implements HashtableOpen8to16 {
                         .findFirst()
                         .orElse(bucket);
             }
-            if (table[i] != null && table[i].getKey() == key && table[i].notRemoved()) {
+            if (table[i] != null && table[i].getKey() == key && table[i].notMarkAsRemoved()) {
                 bucket = i;
                 sizeElements--;
                 break;
