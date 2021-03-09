@@ -3,11 +3,11 @@ package com.epam.rd.autocode.hashtableopen816;
 import java.util.stream.IntStream;
 
 public class HashtableOpen8to16Impl implements HashtableOpen8to16 {
-    private final int MAX_CAPACITY = 16;
+    private static final int MAX_CAPACITY = 16;
     private final double loadFactor;
-    private final int MULTIPLIER = 2;
-    private final int DIVISOR = 2;
-    private final int RATIO = 4;
+    private static final int MULTIPLIER = 2;
+    private static final int DIVISOR = 2;
+    private static final int RATIO = 4;
     private ListNode[] table;
     private int sizeElements;
     private int searchCounter;
