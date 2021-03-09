@@ -5,11 +5,11 @@ public class ListNode {
     private Object value;
     private boolean isRemoved;
 
-    public void markAsRemoved() {
+    public void markedAsRemoved() {
         isRemoved = true;
     }
 
-    public boolean notMarkAsRemoved() {
+    public boolean notMarkedAsRemoved() {
         return !isRemoved;
     }
 
